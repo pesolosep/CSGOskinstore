@@ -120,7 +120,7 @@ urlpatterns = [
 ]
 ```
 
-
+```
 7. Melakukan deployment ke Adaptable terhadap aplikasi yang sudah dibuat sehingga nantinya dapat diakses oleh teman-temanmu melalui Internet
    
 
@@ -129,9 +129,12 @@ Terakhir, jika saya ingin mendeploy proyek saya ke Adaptable, pastikan repositor
 
 Pastikan untuk sesuaikan versi Python dengan versi yang digunakan di lingkungan lokal saya dengan menjalankan `python --version` di terminal lokal. Selanjutnya, masukkan perintah `python manage.py migrate && gunicorn CSGOskinstore.wsgi`dimana CSGOskinstore itu nama repository ke dalam kolom "Start Command". Akhirnya, tentukan nama aplikasi saya dan centang opsi "HTTP Listener on PORT".
 
-
+```
+```
 #### Buatlah bagan yang berisi request client ke web aplikasi berbasis Django beserta responnya dan jelaskan pada bagan tersebut kaitan antara urls.py, views.py, models.py, dan berkas html.
+```
 ![alt text]("images/baganMVT.jpg")
+```
 
 Ketika ada permintaan dari luar, Django akan mencoba mencari pola URL yang ada dalam file urls.py. Setelah menemukan pola URL yang sesuai dengan yang telah kita tulis, Django akan mengakses fungsi yang sesuai dalam file views.py sesuai dengan pola URL yang dituju. Di dalam fungsi yang dipanggil, kita memiliki kemampuan untuk menulis, membaca, menghapus, dan memperbarui basis data. Setelah itu, kita dapat mengirimkan halaman HTML yang akan dirender oleh browser pengguna.
 
