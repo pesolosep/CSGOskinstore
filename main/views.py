@@ -3,9 +3,9 @@ from django.shortcuts import render
 # Create your views here.
 def show_main(request):
     context = {
-        'name': 'Muhammad Faishal Adly Nelwan',
+        'username': 'Muhammad Faishal Adly Nelwan',
         'class' :'PBP C',
-        'item': 'Karambit Blue Gem',
+        'name': 'Karambit Blue Gem',
         'type': 'Knife',
         'price' : 'Rp500.000.000,00',
         'amount' : '1',
