@@ -1,6 +1,6 @@
 [!Link Aplikasi!] (https://pesolcsgoskinstore.adaptable.app/main)
 # Tugas 2
-Untuk Tugas 2 PBP, saya membuat aplikasi inventory bertemakan sebuah tas. Aplikasi berjudul PESOl's CSGO Skin Store dapat dilihat pada [link ini] (https://pesolcsgoskinstore.adaptable.app/main).
+Untuk Tugas 2 PBP, saya membuat aplikasi bertemakan website penjualan skin game yaitu CSGO. Aplikasi berjudul PESOl's CSGO Skin Store dapat dilihat pada [link ini] (https://pesolcsgoskinstore.adaptable.app/main).
 
 #### Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
 
@@ -129,7 +129,7 @@ Pastikan untuk sesuaikan versi Python dengan versi yang digunakan di lingkungan 
 
 
 #### Buatlah bagan yang berisi request client ke web aplikasi berbasis Django beserta responnya dan jelaskan pada bagan tersebut kaitan antara urls.py, views.py, models.py, dan berkas html.
-![alt text]("CSGOskinstore\images\baganMVT.jpg")
+![alt text]("images/baganMVT.jpg")
 
 Ketika ada permintaan dari luar, Django akan mencoba mencari pola URL yang ada dalam file urls.py. Setelah menemukan pola URL yang sesuai dengan yang telah kita tulis, Django akan mengakses fungsi yang sesuai dalam file views.py sesuai dengan pola URL yang dituju. Di dalam fungsi yang dipanggil, kita memiliki kemampuan untuk menulis, membaca, menghapus, dan memperbarui basis data. Setelah itu, kita dapat mengirimkan halaman HTML yang akan dirender oleh browser pengguna.
 
