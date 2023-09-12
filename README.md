@@ -101,14 +101,14 @@ Pada `main.html`, saya meletakkan variabel yang dapat digantikan oleh data yang 
 <p>{{ description }}</p> 
 ```
 ```
-
+```
 6. Membuat sebuah routing pada urls.py aplikasi main untuk memetakan fungsi yang telah dibuat pada views.py.
 
 Saya akan membuat berrkas `urls.py`pada aplikasi main yang akan bertanggung jawab untuk mengatur rute URL yang terkait dengan aplikasi main. Lalu saya kan mengimpor path dari django.urls untuk mendefinisikan pola URL. Lalu saya menggunakan fungsi show_main dari modul main.views sebagai tampilan yang akan ditampilkan ketika URL terkait diakses.
 Nama app_name diberikan untuk memberikan nama unik pada pola URL dalam aplikasi.
-
 ```
 
+```
 ```python
 from django.urls import path
 from main.views import show_main
@@ -121,9 +121,11 @@ urlpatterns = [
 ```
 
 ```
+```
 7. Melakukan deployment ke Adaptable terhadap aplikasi yang sudah dibuat sehingga nantinya dapat diakses oleh teman-temanmu melalui Internet
-   
 
+```
+```
 Terakhir, jika saya ingin mendeploy proyek saya ke Adaptable, pastikan repositori proyek saya sudah berada di GitHub dan bersifat public. Selanjutnya, di Adaptable, pilih opsi "deploy a new app" dan pilih repositori yang sesuai dengan proyek yang akan saya deploy. Pilih template "Python App Template" dan tentukan jenis database yang saya inginkan, disini saya akan memilih "PostgreSQL".
 
 
@@ -132,9 +134,9 @@ Pastikan untuk sesuaikan versi Python dengan versi yang digunakan di lingkungan 
 ```
 ```
 #### Buatlah bagan yang berisi request client ke web aplikasi berbasis Django beserta responnya dan jelaskan pada bagan tersebut kaitan antara urls.py, views.py, models.py, dan berkas html.
-```
-![alt text]("images/baganMVT.jpg")
-```
+
+![Alt text]("images/baganMVT.jpg")
+
 
 Ketika ada permintaan dari luar, Django akan mencoba mencari pola URL yang ada dalam file urls.py. Setelah menemukan pola URL yang sesuai dengan yang telah kita tulis, Django akan mengakses fungsi yang sesuai dalam file views.py sesuai dengan pola URL yang dituju. Di dalam fungsi yang dipanggil, kita memiliki kemampuan untuk menulis, membaca, menghapus, dan memperbarui basis data. Setelah itu, kita dapat mengirimkan halaman HTML yang akan dirender oleh browser pengguna.
 
