@@ -135,7 +135,7 @@ Pastikan untuk sesuaikan versi Python dengan versi yang digunakan di lingkungan 
 ```
 #### Buatlah bagan yang berisi request client ke web aplikasi berbasis Django beserta responnya dan jelaskan pada bagan tersebut kaitan antara urls.py, views.py, models.py, dan berkas html.
 
-![Alt text]("[images/baganMVT.jpg](https://user-images.githubusercontent.com/108632813/267540275-6b404c66-c85b-4ba3-8f20-77995e3aabac.jpg)")
+![Alt text](/images/baganMVT.jpg)
 
 
 Ketika ada permintaan dari luar, Django akan mencoba mencari pola URL yang ada dalam file urls.py. Setelah menemukan pola URL yang sesuai dengan yang telah kita tulis, Django akan mengakses fungsi yang sesuai dalam file views.py sesuai dengan pola URL yang dituju. Di dalam fungsi yang dipanggil, kita memiliki kemampuan untuk menulis, membaca, menghapus, dan memperbarui basis data. Setelah itu, kita dapat mengirimkan halaman HTML yang akan dirender oleh browser pengguna.
