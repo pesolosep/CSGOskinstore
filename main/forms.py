@@ -1,7 +1,7 @@
 from django.forms import ModelForm
-from main.models import Product
+from main.models import Pesanan
 
-class ProductForm(ModelForm):
+class PesananForm(ModelForm):
     class Meta:
-        model = Product
-        fields = ["name", "skinType","amount","description"]
+        model = Pesanan
+        fields = ["name", "skinType","amount","tradeLink"]

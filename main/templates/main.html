@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block content %}s
+{% block content %}
 <head>
     <center>
         <h1>!!!!Pesol's CSGO Skin Store!!!!</h1>
@@ -87,14 +87,14 @@
 </head>
 
 <hr>
-<p>Nama :</p>
+<p>Name :</p>
 <p>{{username}}</p>
 <p>Class :</p>
 <p>{{class}}</p>
 
 <div class="container"></div>
 <div class="product-info">
-    <img src="https://www.simpleimageresizer.com/_uploads/photos/9a99daee/blue-gem-karambit_50.jpg" width="350">
+    <img src="https://www.simpleimageresizer.com/_uploads/photos/a38db52e/blue-gem-karambit_500x281.jpg" width="350">
     <div class="product-details">
 <h5>Skin Name: </h5>
 <p>Karambit Blue Gem</p> 
@@ -103,36 +103,52 @@
 <h5>Price: </h5>
 <p>Rp5.000.000,00</p> 
 <h5>Description: </h5>
-<p>The rarest skin in CSGO, effect on using this skin is as follows: +25% aim +50 damage</p> 
+<p>The rarest knife skin in CSGO, effect on using this skin is as follows: +25% aim +50 damage</p>
+
+</div>
+</div>
+
+<div class="product-info">
+    <img src="https://www.simpleimageresizer.com/_uploads/photos/a38db52e/fire_serpent_ak_1_500x281.jpeg" width="350">
+    <div class="product-details">
+<h5>Skin Name: </h5>
+<p>AK-47 Fire Serpent</p> 
+<h5>Type: </h5>
+<p>Rifle</p> 
+<h5>Price: </h5>
+<p>Rp1.000.000,00</p> 
+<h5>Description: </h5>
+<p>Shroud's Skin, therefore giving you his skills: +50% aim reflex +30% spray control</p> 
 </div>
 </div>
 </div>
 
+<h1>Total skin orders : {{totalPesanan}}</h1>
 <table>
     <tr>
         <th>Name</th>
         <th>Skin type</th>
-        <th>amount</th>
-        <th>Description</th>
+        <th>Amount</th>
+        <th>Steam link</th>
         <th>Date Added</th>
     </tr>
 
     {% comment %} Berikut cara memperlihatkan data produk di bawah baris ini {% endcomment %}
 
-    {% for product in products %}
+    {% for pesanan in pesanans %}
         <tr>
-            <td>{{product.name}}</td>
-            <td>{{product.skinType}}</td>
-            <td>{{product.amount}}</td>
-            <td>{{product.description}}</td>
-            <td>{{product.date_added}}</td>
+            <td>{{pesanan.name}}</td>
+            <td>{{pesanan.skinType}}</td>
+            <td>{{pesanan.amount}}</td>
+            <td>{{pesanan.tradeLink}}</td>
+            <td>{{pesanan.date_added}}</td>
         </tr>
     {% endfor %}
 </table>
 
 <br />
 <div class="center-button">
-    <a href="{% url 'main:create_product' %}" class="rounded-button">Tambahkan Pesanan</a>
+    <a href="{% url 'main:create_product' %}" class="rounded-button">Make Order</a>
 </div>
 
 {% endblock content %}
