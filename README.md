@@ -1,5 +1,10 @@
 [!Link Aplikasi!] (https://pesolcsgoskinstore.adaptable.app/main)
-# Tugas 2
+
+</details>
+Tugas 2
+<details>
+
+
 Untuk Tugas 2 PBP, saya membuat aplikasi bertemakan website penjualan skin game yaitu CSGO. Aplikasi berjudul PESOl's CSGO Skin Store dapat dilihat pada [link ini] (https://pesolcsgoskinstore.adaptable.app/main).
 
 #### Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
@@ -148,3 +153,7 @@ Virtual environment digunakan untuk mengisolasi dependensi proyek, mencegah konf
 - MVC (Model-View-Controller): Memisahkan data (Model), tampilan (View), dan logika pengendalian (Controller).
 - MVT (Model-View-Template): Sama seperti MVC, dengan Template yang memisahkan tampilan.
 - MVVM (Model-View-ViewModel): Memisahkan Model, tampilan (View), dan ViewModel yang menghubungkan keduanya, umumnya digunakan dalam - aplikasi UI dinamis seperti aplikasi mobile.
+
+</details>
+Tugas 3
+<details>

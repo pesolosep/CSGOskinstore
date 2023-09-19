@@ -1,25 +1,138 @@
+{% extends 'base.html' %}
 
-<center>
-    <h1>!!!!Pesol's CSGO Skin Store!!!!</h1>
-    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8w2t9gVt_iWs8ADidLsJA33yU4H9yH11S_FGuPDGpIu9ZmvJ34XsOa7v6VT_GHSFg_Fg&usqp=CAUsstyle="width:128px;height:128px;>
-    <pre> Cheap skins my friend (high risk of losing steam account) </pre>
-</center>
+{% block content %}s
+<head>
+    <center>
+        <h1>!!!!Pesol's CSGO Skin Store!!!!</h1>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8w2t9gVt_iWs8ADidLsJA33yU4H9yH11S_FGuPDGpIu9ZmvJ34XsOa7v6VT_GHSFg_Fg&usqp=CAUsstyle="width:128px;height:128px;>
+        <pre> Cheap skins my friend (high risk of losing steam account) </pre>
+    </center>
+    <style>
+        body {
+           font-family: Arial, sans-serif;
+           
+       }
 
+       h1 {
+           text-align: center;
+           margin-top: 20px;
+       }
+       
+       .product-info {
+           display: flex;
+           justify-content: center;
+           align-items: center;
+           padding: 20px;
+           border-radius: 50px;
+           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+           margin-bottom: 20px;
+           background-color: #f9f9f9;
+
+       }
+
+       .product-details {
+           margin-left: 20px;
+           font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+           font-size: large;
+       }
+
+       .product-info img {
+           max-width: 200px;
+           height: auto;
+       }
+
+       table {
+           width: 100%;
+           border-collapse: collapse;
+           margin-bottom: 20px;
+       }
+
+       /* Styling header tabel */
+       th {
+           background-color: #f2f2f2;
+           text-align: left;
+           padding: 8px;
+       }
+
+       /* Styling sel pada tabel */
+       td {
+           padding: 8px;
+           border-bottom: 1px solid #ddd;
+       }
+
+       /* Styling the "Add New Product Button"*/
+       .center-button {
+           display: flex;
+           justify-content: center;
+           align-items: center;
+           margin-top: 20px;
+       }
+
+       .rounded-button {
+           background-color: #008CBA;
+           color: white;
+           border: none;
+           padding: 10px 20px;
+           cursor: pointer;
+           border-radius: 15px; 
+           text-decoration: none; 
+       }
+
+       /* Efek Hover pada bagian button*/
+       .rounded-button:hover { 
+           background-color: #005f7f;
+       }
+       
+   </style>
+</head>
 
 <hr>
 <p>Nama :</p>
 <p>{{username}}</p>
 <p>Class :</p>
 <p>{{class}}</p>
-<p></p>
-<img src="https://www.esports.net/wp-content/uploads/2023/07/blue-gem-karambit.jpg"width:1px;height:1px;>
+
+<div class="container"></div>
+<div class="product-info">
+    <img src="https://www.simpleimageresizer.com/_uploads/photos/9a99daee/blue-gem-karambit_50.jpg" width="350">
+    <div class="product-details">
 <h5>Skin Name: </h5>
-<p>{{name}}</p> 
+<p>Karambit Blue Gem</p> 
 <h5>Type: </h5>
-<p>{{ type }}</p> 
+<p>Knife</p> 
 <h5>Price: </h5>
-<p>{{ price }}</p> 
-<h5>Amount: </h5>
-<p>{{ amount }}</p> 
+<p>Rp5.000.000,00</p> 
 <h5>Description: </h5>
-<p>{{ description }}</p> 
+<p>The rarest skin in CSGO, effect on using this skin is as follows: +25% aim +50 damage</p> 
+</div>
+</div>
+</div>
+
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Skin type</th>
+        <th>amount</th>
+        <th>Description</th>
+        <th>Date Added</th>
+    </tr>
+
+    {% comment %} Berikut cara memperlihatkan data produk di bawah baris ini {% endcomment %}
+
+    {% for product in products %}
+        <tr>
+            <td>{{product.name}}</td>
+            <td>{{product.skinType}}</td>
+            <td>{{product.amount}}</td>
+            <td>{{product.description}}</td>
+            <td>{{product.date_added}}</td>
+        </tr>
+    {% endfor %}
+</table>
+
+<br />
+<div class="center-button">
+    <a href="{% url 'main:create_product' %}" class="rounded-button">Tambahkan Pesanan</a>
+</div>
+
+{% endblock content %}
