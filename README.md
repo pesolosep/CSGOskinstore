@@ -1,5 +1,6 @@
-[!Link Aplikasi!] (ristek.link/tugas-pbp-pesol-lol)
-(belum deploy #kenaban #yahayuk)
+[!Link Aplikasi!] (https://pesolcsgoskinstore.vercel.app/)
+
+
 </details>
 Tugas 2
 <details>
@@ -169,6 +170,23 @@ Tugas 3
 
 # Cara Implementasi
 
+## Mengganti SQL menjadi PostgreSQL
+Karena saya tidak isi form untuk memakai PaaS Fasilkom, maka saya harus deploy melalui PaaS lain :D. Platform yang saya akan pakai adalah `vercel.app` . Untuk memakai platform tersebut, saya perlu membuat database SQL terbaru memakai `railway.app` . Disitu saya akan mendapat database Postgres pribadi, dari situ saya akan mengconnect nya dengan mengubah variabel `DATABASE` pada `settings.py` .
+
+```python
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'railway',
+        'USER' : 'postgres',
+        'PASSWORD' : 'RNyPzc7grbq4ifbXtAmO',
+        'HOST' : 'containers-us-west-39.railway.app',
+        'PORT' : '6005'
+    }
+}
+```
+
+Dengan mengubah database saya, saya bisa mendeploy deh project ini ke vercel :D .
 ## Membuat Form (`forms.py`)
 
 `APP/forms.py` akan mengimplementasikan library `django.forms`, dimana akan digunakan untuk proses pembuatan form kita (pesanan baru dalam konteks website). Seluruh html sudah dihandle oleh library form tersebut. Isi `APP/forms.py` dari aplikasi saya adalah.
