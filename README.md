@@ -1,5 +1,5 @@
-[!Link Aplikasi!] (https://pesolcsgoskinstore.adaptable.app/main)
-
+[!Link Aplikasi!] (ristek.link/tugas-pbp-pesol-lol)
+(belum deploy #kenaban #yahayuk)
 </details>
 Tugas 2
 <details>
