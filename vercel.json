@@ -1,0 +1,14 @@
+{
+    "builds": [
+      {
+        "src": "CSGOskinstore/wsgi.py",
+        "use": "@vercel/python"
+      }
+    ],
+    "routes": [
+      {
+        "src": "/(.*)",
+        "dest": "CSGOskinstore/wsgi.py"
+      }
+    ]
+  }
