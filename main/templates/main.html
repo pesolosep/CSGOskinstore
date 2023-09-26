@@ -26,7 +26,7 @@
            border-radius: 50px;
            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
            margin-bottom: 20px;
-           background-color: #e0a4a4;
+           background-color: #919090;
 
        }
 
@@ -95,10 +95,11 @@
 <p>{{username}}</p>
 <p>Class :</p>
 <p>{{class}}</p>
+ 
 
 <div class="container"></div>
     <div class="product-info">
-        <img src="https://www.simpleimageresizer.com/_uploads/photos/a38db52e/blue-gem-karambit_500x281.jpg" width="350">
+        <img src="https://user-images.githubusercontent.com/108632813/270044967-d19e6e2c-3bc2-4ff3-8fad-9b73c1092f41.jpg" width="350">
         <div class="product-details">
             <div class="description">
             <h5>Skin Name: </h5>
@@ -115,7 +116,7 @@
     </div>
 
     <div class="product-info">
-        <img src="https://www.simpleimageresizer.com/_uploads/photos/a38db52e/fire_serpent_ak_1_500x281.jpeg" width="350">
+        <img src="https://user-images.githubusercontent.com/108632813/270044955-aa69a917-d31c-4f99-9088-096c20194e27.jpeg" width="350">
         <div class="product-details">
             <div class="description">
             <h5>Skin Name: </h5>
@@ -133,13 +134,17 @@
 </div>
 
 <h1>Total skin orders : {{totalPesanan}}</h1>
+<h4>Sesi terakhir login: {{ last_login }}</h4>
 <table>
     <tr>
         <th>Name</th>
         <th>Skin type</th>
         <th>Amount</th>
-        <th>Steam link</th>
+        <th>Payment Method</th>
         <th>Date Added</th>
+        <th></th>
+        <th></th>
+        <th></th>
     </tr>
 
     {% comment %} Berikut cara memperlihatkan data produk di bawah baris ini {% endcomment %}
@@ -149,9 +154,30 @@
             <td>{{pesanan.name}}</td>
             <td>{{pesanan.skinType}}</td>
             <td>{{pesanan.amount}}</td>
-            <td>{{pesanan.tradeLink}}</td>
+            <td>{{pesanan.payment}}</td>
             <td>{{pesanan.date_added}}</td>
+            <td>
+                <form method="post" action="{% url 'main:add_amount' pesanan.id %}">
+                    {% csrf_token %}
+                    <button type="submit">+</button>
+                </form>
+            </td>
+    
+            <td>
+                <form method="post" action="{% url 'main:decrease_amount' pesanan.id %}">
+                    {% csrf_token %}
+                    <button type="submit">-</button>
+                </form>
+            </td>
+    
+            <td>
+                <form method="post" action="{% url 'main:delete_object' pesanan.id %}">
+                    {% csrf_token %}
+                    <button type="submit">DEL</button>
+                </form>
+            </td>
         </tr>
+
     {% endfor %}
 </table>
 
@@ -160,4 +186,12 @@
     <a href="{% url 'main:create_product' %}" class="rounded-button">Make Order</a>
 </div>
 
+<div class="center-button">
+
+    <a href="{% url 'main:logout' %}">
+    <button>
+        Logout
+    </button>
+    </a>
+</div>
 {% endblock content %}

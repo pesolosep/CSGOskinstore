@@ -4,4 +4,5 @@ from main.models import Pesanan
 class PesananForm(ModelForm):
     class Meta:
         model = Pesanan
-        fields = ["name", "skinType","amount","tradeLink"]
+        fields = ["name", "skinType","amount","payment"]
+
