@@ -4,31 +4,141 @@
     <title>Register</title>
 {% endblock meta %}
 
-{% block content %}  
+{% block content %}
 
-<div class = "login">
+<style>
+    body {
+        background-image: url('https://cdn.akamai.steamstatic.com/apps/csgo/images/dreams/hyper_awp_1.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        position: relative; 
+    }
+
+    .logo {
+        position: absolute;
+        top: 12px;
+        left: 22px;
+        z-index: 2;
+        font-size: 36px;
+        font-family: 'Helvetica', sans-serif;
+        color: rgb(108, 20, 162);
+    }
+
+    .showcase h1,
+    .showcase a {
+        font-family: 'Helvetica', sans-serif;
+        color: black;
+        font-weight: bold;
+    }
+
+    .text-title{
+        text-align: left; 
+        font-size:35px;
+        font-weight: 600;
+        padding-bottom: 19px;
+        padding-top: 5px;
+    }
+
+    .showcase {
+        text-align: center;
+        background-color: #d3d3d3ac;
+        border-radius: 16px;
+        padding-top: 30px;
+        padding: 40px;
+        width: 600px;
+        text-align: left;
+        backdrop-filter: blur(6px);
+    }
+
+    .form-group {
+        margin-bottom: 2rem;
+    }
+
+    label {
+        display: block;
+        font-weight: bold;
+    }
+
+    .form-table {
+        color: rgb(255, 255, 255);
+    }
+
+
+    input[type="text"],
+    input[type="password"],
+    textarea {
+        width: 100%;
+        padding: 0.4rem;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .errorlist {
+        color: red;
+    }
+
+    .showcase .register-button {
+        font-size: 16px;
+        display: inline-flex;
+        height: 40px;
+        width: 100%;
+        padding: 8px;
+        justify-content: center;
+        align-items: center;
+        gap: 16px;
+        border-radius: 8px;
+        background: var(--primary-blue, rgb(108, 20, 162));
+        color: #ffffff;
+        text-decoration: none;
+        border: none;
+        cursor: pointer;
+    }
+
+    .login {
+        font-family: 'Helvetica', sans-serif;
+        font-weight: 400;
+        text-align: center;
+        padding-top: 20px;
+    }
     
-    <h1>Register</h1>  
+</style>
 
-        <form method="POST" >  
-            {% csrf_token %}  
-            <table>  
-                {{ form.as_table }}  
-                <tr>  
-                    <td></td>
-                    <td><input type="submit" name="submit" value="Daftar"/></td>  
-                </tr>  
-            </table>  
-        </form>
+<div class="logo">
+    PESOLOSEP CSGO SKINSTORE
+</div>
 
-    {% if messages %}  
-        <ul>   
-            {% for message in messages %}  
-                <li>{{ message }}</li>  
-                {% endfor %}  
-        </ul>   
+<div class = "showcase">
+    <h1 class="text-title">Sign Up</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_table }}
+        <div>
+            <input class="register-button" type="submit" name="submit" value="Sign Up"/>
+        </div>
+
+        <div class="login">
+            Already have an account?
+            <a href="{% url 'main:login' %}">Login</a>
+        </div>
+
+    </form>
+
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
     {% endif %}
-
-</div>  
+    
+</div>
 
 {% endblock content %}

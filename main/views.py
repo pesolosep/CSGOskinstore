@@ -94,6 +94,21 @@ def delete_object(request, id):
     Pesanan.objects.filter(user=request.user).filter(pk=id).delete() #first() is for effieciency as it only retrieve one requested object
     return HttpResponseRedirect(reverse('main:show_main'))
 
+def edit_product(request, id):
+    # Get product berdasarkan ID
+    pesanan = Pesanan.objects.get(pk = id)
+
+    # Set product sebagai instance dari form
+    form = PesananForm(request.POST or None, instance=pesanan)
+
+    if form.is_valid() and request.method == "POST":
+        # Simpan form dan kembali ke halaman awal
+        form.save()
+        return HttpResponseRedirect(reverse('main:show_main'))
+
+    context = {'form': form}
+    return render(request, "edit_product.html", context)
+
 
 def show_xml(request):
     data = Pesanan.objects.all()

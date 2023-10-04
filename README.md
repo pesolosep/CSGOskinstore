@@ -897,3 +897,223 @@ Untuk mengamankan penggunaan cookies dalam pengembangan web, Anda dapat mengikut
 - **Pantau Keamanan:** Pantau aktivitas yang mencurigakan terkait dengan cookies dan tindakan keamanan lainnya secara teratur.
 
 Saat mengembangkan aplikasi web, `selalu ` pertimbangkan `keamanan cookies` sebagai bagian penting dari strategi keamanan Anda. Penerapan yang benar akan membantu mengurangi risiko dan menjaga data pengguna yang aman.
+
+</details>
+Tugas 5
+<details>
+
+## Cara Implementasi
+- **Kustomisasi halaman login, register, dan tambah inventori semenarik mungkin**
+      
+Sebelum melakukan desain pada HTML, perlu menambahkan link CSS framework dalam case ini adalah Bootstrap dan Java Scriptke dalam `templates/base.html` dan menambahkan tag `<meta name="viewport">` . Untuk menambahkannya bisa dengan menambahkan:
+
+```html
+<head>
+    {% block meta %}
+        ...
+    {% endblock meta %}
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+</head>
+
+```
+Pada halaman login, register, dan tambah inventori, desain yang saya buat kurang lebih sama, saya menggunakan inline css dengan memanggil `<style>` pada bagian atas html serta dipadukan dengan framework bootstrap. Saya menggunakan inline CSS karena menurut saya ini yang mudah disetup dan digunakan untuk pemula. Berikut adalah inline CSS yang saya tambahkan:
+```html
+<style>
+    body {
+        background-image: url('https://cdn.akamai.steamstatic.com/apps/csgo/images/dreams/hyper_awp_1.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        position: relative; 
+    }
+
+    .logo {
+        position: absolute;
+        top: 12px;
+        left: 22px;
+        z-index: 2;
+        font-size: 36px;
+        font-family: 'Helvetica', sans-serif;
+        color: rgb(108, 20, 162);
+    }
+
+    .showcase h1,
+    .showcase a {
+        font-family: 'Helvetica', sans-serif;
+        color: black;
+        font-weight: bold;
+    }
+
+    .showcase {
+        text-align: center;
+        background-color: #d3d3d3ac;
+        border-radius: 16px;
+        padding-top: 30px;
+        padding: 40px;
+        width: 600px;
+        text-align: left;
+        backdrop-filter: blur(6px);
+    }
+
+    form {
+        font-family: 'Helvetica', sans-serif;
+        font-weight: 600;
+    }
+
+    input,
+    textarea {
+        width: 100%;
+        padding: 0.4rem;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .text-title {
+        text-align: left; 
+        font-size:35px;
+        font-weight: 600;
+        padding-bottom: 19px;
+        padding-top: 5px;
+    }
+
+    .submit-button{
+        font-size: 16px;
+        display: inline-flex;
+        height: 40px;
+        width: 100%;
+        padding: 8px 48px;
+        justify-content: center;
+        align-items: center;
+        gap: 16px;
+        border-radius: 8px;
+        background: var(--primary-blue, rgb(108, 20, 162));
+        color: #ffffff;
+        text-decoration: none;
+        border: none;
+        cursor: pointer;
+    }
+
+</style>
+
+```
+
+      
+ -  **Kustomisasi halaman daftar inventori menjadi lebih berwarna maupun menggunakan apporach lain seperti menggunakan Card**
+
+Berikut inline CSS pada file main.html saya
+
+```html
+<style>
+....
+.rounded-button {
+    background-color: #6c00ba;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 15px; 
+    text-decoration: none; 
+}
+
+/* Efek Hover pada bagian button*/
+.rounded-button:hover { 
+    background-color: #43085e;
+}
+
+
+
+....
+</style>
+
+```
+
+ - **Memberikan warna yang berbeda (teks atau background) pada baris terakhir dari item pada inventori anda menggunakan CSS**
+
+Untuk menambahkan penanda berbeda di akhir tabel, saya menambahkan CSS untuk last child pada `tr` dengan kode berikut:
+
+```html
+<style>
+...
+table tr:last-child td {
+background-color: rgb(159, 134, 188);
+color: #ffffff;
+}
+...
+</style>
+
+```
+
+   
+
+##  Manfaat dari setiap element selector dan kapan waktu yang tepat untuk menggunakannya
+
+1. **Element Selector (Tag Selector):**
+
+    * Manfaat: Memilih semua elemen dengan tag yang spesifik
+    * Waktu Penggunaan: Ketika ingin menerapkan gaya yang sama pada semua elemen dengan tag tertentu.
+
+2. **Descendant Selector (Space):**
+    
+    * Manfaat: Memilih elemen yang merupakan anak atau keturunan dari elemen tertentu.
+    * Waktu Penggunaan: Ketika ingin menerapkan gaya pada elemen yang berada di dalam elemen tertentu.
+
+3. **ID Selector (#nama-id):**
+
+    * Manfaat: Memilih elemen dengan ID yang spesifik.
+    * Waktu Penggunaan: ketika ingin menerapkan gaya atau perilaku unik pada satu elemen tertentu.
+
+4. **Class Selector (.nama-kelas):**
+
+    * Manfaat: Memilih elemen berdasarkan kelas yang diberikan
+    * Waktu Penggunaan: Ketika ingin menerapkan gaya yang sama pada beberapa elemen atau grup elemen.
+
+5. **Universal Selector (*):**
+    
+    * Manfaat: Memilih semua elemen di halaman.
+    * Waktu Penggunaan: Ketika mereset atau menetapkan gaya default untuk semua elemen di halaman.
+
+6. **Adjacent Sibling Selector (+):**
+
+    * Manfaat: Memilih elemen yang sejajar (saudara sejajar) dari elemen tertentu.
+    * Waktu Penggunaan: Ketika ingin menerapkan gaya pada elemen yang berada tepat setelah elemen lain dari jenis yang sama.
+
+7. **Pseudo-Class Selector (:pseudo-class):**
+
+    * Manfaat: Memilih elemen berdasarkan keadaan atau perilaku tertentu (seperti :hover, :active, dsb.)
+    * Waktu Penggunaan: Ketika ingin menerapkan gaya berdasarkan interaksi pengguna atau keadaan elemen.
+
+## Penjelasan HTML5 Tag
+HTML5 adalah versi terbaru dari HTML. Beberapa tag HTML5 yang dapat digunakan adalah:
+
+1. `<canvas>` digunakan untuk membuat gambar, grafik, dan animasi dengan bantuan JavaScript.
+2. `<video>` digunakan untuk memperlihatkan video pada halaman web.
+3. `<nav>` digunakan untuk membuat bagian navigasi situs web
+4. `<audio>` digunakan untuk memperlihatkan file audio pada halaman web.
+5. `<img>` digunakan untuk memperlihatkan gambar dalam halaman web.
+6. `<a>` digunakan untuk membuat hyperlink ke halaman web lain, file, dan sebagainya.
+
+## Perbedaan *margin* dan *padding*
+Margin mengatur jarak suatu elemen terhadap elemen-elemen lainnya, sedangkan padding mengatur jarak elemen yang berada di dalam suatu elemen terhadap border dari elemen tersebut.
+
+<div style='display: flex;'>
+    <img src='https://hackmd.io/_uploads/B1QiTx9ya.png' width=100%>
+
+</div>
+
+## Perbedaan TailwindCSS dengan Bootstrap
+
+Bootstrap menyediakan komponen-komponen yang sudah jadi sehingga tinggal kita pakai sedangkan tailwind menyediakan template-template lebih dasar yang harus kita gabungkan terlebih dulu untuk memakainya. Sehingga perbedaannya adalah **tailwind** unggul pada kustomisasi namun lemah pada **kecepatan implementasi** sedangkan **bootstrap** unggul pada **kecepatan implementasi** namun lengah pada **kustomisasi**.
+
+Waktu terbaik menggunakan **tailwind** adalah disaat kita diminta membuat website dengan desain kompleks dengan jangka waktu yang **lama**. Sedangkan bootstrap adalah ketika kita diminta membuat website **simpel** dengan jangka waktu yang **pendek**.
+
