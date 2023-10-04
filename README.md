@@ -1009,13 +1009,96 @@ Pada halaman login, register, dan tambah inventori, desain yang saya buat kurang
 ```
 
       
- -  **Kustomisasi halaman daftar inventori menjadi lebih berwarna maupun menggunakan apporach lain seperti menggunakan Card**
+ -  **Kustomisasi halaman main dan daftar order menjadi lebih berwarna maupun menggunakan apporach lain seperti menggunakan Card**
 
 Berikut inline CSS pada file main.html saya
 
 ```html
 <style>
-....
+
+center{
+    backdrop-filter: blur(6px);
+}
+
+body{
+background-image: url('https://cdn.akamai.steamstatic.com/apps/csgo/images/dreams/hyper_awp_1.png');
+backdrop-filter: blur(6px);
+}
+pre{
+color:  #fff;
+}
+h1 {
+    text-align: center;
+    margin-top: 20px;
+    color :  #fff;
+}
+
+.product-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    color:  #fff;
+    border-radius: 50px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    background-color: #919090;
+    backdrop-filter: blur(3px);
+
+}
+
+button {
+background-color: rgb(108, 20, 162);
+color: #fff;
+border: none;
+padding: 10px 20px;
+cursor: pointer;
+font-size: 16px;
+}
+
+.product-details {
+    margin-left: 20px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color:  #fff;
+    font-size: large;
+}
+
+.product-info img {
+    max-width: 500px;
+    height: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+/* Styling header tabel */
+th {
+    background-color: #f2f2f2;
+    text-align: left;
+    padding: 8px;
+}
+
+/* Styling sel pada tabel */
+td {
+color:  #fff;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+}
+table tr:last-child td {
+background-color: rgb(159, 134, 188);
+color: #ffffff;
+}
+/* Styling the "Add New Product Button"*/
+.center-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
 .rounded-button {
     background-color: #6c00ba;
     color: white;
@@ -1031,6 +1114,15 @@ Berikut inline CSS pada file main.html saya
     background-color: #43085e;
 }
 
+.description {
+width: 550px;
+}
+p{
+color: #fff;
+}
+h4{
+color: #fff;      
+}
 
 
 ....
