@@ -6,6 +6,5 @@ requests
 urllib3
 pymysql
 wheel
-mysqlclient
 django-environ
 
