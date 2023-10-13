@@ -8,5 +8,5 @@ class Pesanan(models.Model):
     name = models.CharField(max_length=255)
     date_added = models.DateField(auto_now_add=True)
     skinType =models.TextField(default="-")
-    amount = models.IntegerField()
+    amount = models.IntegerField(default=0)
     payment = models.TextField(default="-")

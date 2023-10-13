@@ -13,6 +13,10 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 import environ
 import os
+import pymysql
+pymysql.install_as_MySQLdb()
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -28,7 +32,7 @@ PRODUCTION = env.bool('PRODUCTION', False)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*", '.vercel.app']
+ALLOWED_HOSTS = ["*", '.vercel.app','now.sh','127.0.0.1','localhost']
 
 
 # Application definition
@@ -52,6 +56,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
 
 ROOT_URLCONF = 'CSGOskinstore.urls'
 
@@ -79,14 +84,21 @@ WSGI_APPLICATION = 'CSGOskinstore.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'railway',
-        'USER' : 'postgres',
-        'PASSWORD' : 'JxRUp0Bi2hoyAzPK02Oc',
-        'HOST' : 'containers-us-west-36.railway.app',
-        'PORT' : '7956'
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'TugasIndividuPBP_headedtown',
+        'USER' : 'TugasIndividuPBP_headedtown',
+        'PASSWORD' : '27104c8d6ec3e4862bdee75bcc5ce14bff9a1074',
+        'HOST' : 'o9q.h.filess.io',
+        'PORT' : '3307'
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 
 # Password validation
@@ -124,7 +136,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 

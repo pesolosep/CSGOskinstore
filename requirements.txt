@@ -4,5 +4,8 @@ whitenoise
 psycopg2-binary
 requests
 urllib3
+pymysql
+wheel
+mysqlclient
 django-environ
 

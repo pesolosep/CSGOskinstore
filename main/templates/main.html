@@ -1,12 +1,6 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<head>
-    <center>
-        <h1>!!!!Pesol's CSGO Skin Store!!!!</h1>
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8w2t9gVt_iWs8ADidLsJA33yU4H9yH11S_FGuPDGpIu9ZmvJ34XsOa7v6VT_GHSFg_Fg&usqp=CAUsstyle="width:128px;height:128px;>
-        <pre> Cheap skins my friend (high risk of losing steam account) </pre>
-    </center>
     <style>
         center{
             backdrop-filter: blur(6px);
@@ -34,8 +28,12 @@
            border-radius: 50px;
            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
            margin-bottom: 20px;
-           background-color: #919090;
-           backdrop-filter: blur(3px);
+           background-color: #9e7eb2;
+
+
+       }
+       .container {
+        background-color: #9e7eb2;
 
        }
 
@@ -111,23 +109,42 @@
        }
        p{
         color: #fff;
+        font-size:15px;
        }
        h4{
-        color: #fff;      
+        color: #fff;
+        font-size: 25px;      
      }
-
-       
+     .btn-outline-success{  
+        color: #ffff;
+     }
+     .h3{
+        color: #070707;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        font-size: small;
+     }
+ 
    </style>
+
+<head>
+    <nav class="navbar" data-bs-theme="dark">
+        <div class="container-fluid">
+            <img src="https://user-images.githubusercontent.com/108632813/274719542-82ddd9da-d588-4149-8663-b246d45a9ee0.jpg" class="img-fluid" alt="">
+            <a class="navbar-brand">PESOLOSEP'S CSGO SKIN STORE</a>
+            
+            <a href="{% url 'main:logout' %}">
+                <button class="btn btn-outline-success">
+                    Logout
+                </button>
+            </a>
+        </div>
+    </nav>
 </head>
 
-<hr>
-<p>Name :</p>
-<p>{{username}}</p>
-<p>Class :</p>
-<p>{{class}}</p>
- 
+<body>
+    <p>Welcome, {{name}}!</p>
 
-<div class="container"></div>
+    <div class="container"></div>
     <div class="product-info">
         <img src="https://user-images.githubusercontent.com/108632813/270044967-d19e6e2c-3bc2-4ff3-8fad-9b73c1092f41.jpg" width="350">
         <div class="product-details">
@@ -163,66 +180,101 @@
     </div>
 </div>
 
-<h1>Total skin orders : {{totalPesanan}}</h1>
-<h4>Sesi terakhir login: {{ last_login }}</h4>
-<table>
-    <tr>
-        <th>Name</th>
-        <th>Skin type</th>
-        <th>Amount</th>
-        <th>Payment Method</th>
-        <th>Date Added</th>
-        <th></th>
-    </tr>
+    <table id="product_table"></table>
 
-    {% comment %} Berikut cara memperlihatkan data produk di bawah baris ini {% endcomment %}
-    
-    {% for pesanan in pesanans %}
-        <tr>
-            <td>{{pesanan.name}}</td>
-            <td>{{pesanan.skinType}}</td>
-            <td>
+    <div class="row row-cols-1 row-cols-md-3 g-4" id="item_card"></div>
 
-                <a href="{% url 'main:decrease_amount' pesanan.id %}">
-                    <button>
-                        -
-                    </button>
-                </a>
-                {{pesanan.amount}}
-                <a href="{% url 'main:add_amount' pesanan.id %}">
-                    <button>
-                        +
-                    </button>
-                </a>
-            </td>
-            <td>{{pesanan.payment}}</td>
-            <td>{{pesanan.date_added}}</td>
-            <td>
-            <a href="{% url 'main:edit_product' pesanan.id %}">
-                <button>
-                    Edit
-                </button>
-            <a href="{% url 'main:delete_object' pesanan.id %}">
-                <button>
-                    DEL
-                </button>
-            </td>
-        </tr>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Make a new order</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="form" onsubmit="return false;">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="name" class="col-form-label">Name:</label>
+                            <input type="text" class="form-control" id="name" name="name"></input>
+                        </div>
+                        <div class="mb-3">
+                            <label for="skinType" class="col-form-label">Skin Type:</label>
+                            <input type="text" class="form-control" id="skinType" name="skinType"></input>
+                        </div>
+                        <div class="mb-3">
+                            <label for="amount" class="col-form-label">Amount:</label>
+                            <input type="number" class="form-control" id="amount" name="amount"></input>
+                        </div>
+                        <div class="mb-3">
+                            <label for="payment" class="col-form-label">Payment Method:</label>
+                            <textarea class="form-control" id="payment" name="payment"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success" id="button_add" data-bs-dismiss="modal">Add Product</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">Make a skin order by AJAX</button>
 
-    {% endfor %}
-</table>
 
-<br />
-<div class="center-button">
-    <a href="{% url 'main:create_product' %}" class="rounded-button">Make Order</a>
-</div>
+    <p id="total-products">Total skin orders: {{ total_products }}</p>
+    <p>Last Login Session: {{ last_login }}</p>
+</body>
 
-<div class="center-button">
+<script>
+    async function getProducts() {
+        return fetch("{% url 'main:get_product_json' %}").then((res) => res.json())
+    }
+    async function refreshProducts() {
+        document.getElementById("product_table").innerHTML = ""
+        const products = await getProducts()
+        let htmlString = ``
+        products.forEach((item) => {
+                htmlString += `\n<div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">${item.fields.name}</h5>
+                        <h3 class="card-text">Skin Type: ${item.fields.skinType}</p>
+                        <h3 class="card-text">Amount: ${item.fields.amount}</p>
+                        <h3 class="card-text">Payment: ${item.fields.payment}</p>
+                        <button class="btn btn-outline-warning" onclick="deleteProduct(${item.pk})">Delete</button>
+                    </div>
+                </div>
+            </div>` 
+            })
 
-    <a href="{% url 'main:logout' %}">
-    <button>
-        Logout
-    </button>
-    </a>
-</div>
+        
+        document.getElementById("product_table").innerHTML = htmlString
+        const totalProductsElement = document.getElementById("total-products");
+        totalProductsElement.textContent = `Total skin orders: ${products.length} `;
+    }
+    refreshProducts()
+
+    function addProduct() {
+        fetch("{% url 'main:add_product_ajax' %}", {
+            method: "POST",
+            body: new FormData(document.querySelector('#form'))
+        }).then(refreshProducts)
+
+        document.getElementById("form").reset()
+        return false
+    }
+    document.getElementById("button_add").onclick = addProduct
+
+
+    function deleteProduct(pk) {
+        var action = confirm("Are you sure you want to delete this order?");
+        if (action) {
+            fetch(`/delete_product_ajax/${pk}`, {
+                method: 'DELETE',
+            }).then(refreshProducts);
+            alert("your order has been deleted");
+        }
+    }
+</script>
 {% endblock content %}

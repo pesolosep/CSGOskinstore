@@ -1209,3 +1209,211 @@ Bootstrap menyediakan komponen-komponen yang sudah jadi sehingga tinggal kita pa
 
 Waktu terbaik menggunakan **tailwind** adalah disaat kita diminta membuat website dengan desain kompleks dengan jangka waktu yang **lama**. Sedangkan bootstrap adalah ketika kita diminta membuat website **simpel** dengan jangka waktu yang **pendek**.
 
+</details>
+Tugas 6
+<details>
+
+## Cara Implementasi
+
+- AJAX GET
+
+Membuat fungsi untuk menampilkan data produk yang di*filter* untuk *user* yang telah *login* dan menambahkan path url ke `urls.py`.
+
+```python
+def get_product_json(request):
+    product_item = Pesanan.objects.filter(user=request.user)
+    return HttpResponse(serializers.serialize('json', product_item))
+
+```
+
+Karena pada tugas sebelumnya saya memakai tabel bukan *cards*, saya membuat *cards* terlebih dahulu.
+
+Membuat strukur *cards* menggunakan layout grid.
+
+    ```
+<div class="row row-cols-1 row-cols-md-3 g-4" id="item_card"></div>
+```
+Membuat fungsi untuk melakukan fetch data JSON di dalam tag \<script> pada main.html. Data di*fetch* secara*asynchronous*.
+
+```java
+    async function getProducts() {
+        return fetch("{% url 'main:get_product_json' %}").then((res) => res.json())
+    }
+```
+
+Membuat fungsi pada \<script> yang akan memperbarui data-data secara *asynchronous* jika terjadi suatu *event* tanpa me-*reload* halaman. Pada fungsi ini ada *loop* yang mengiterasi semua *item* milik *user* dan menampilkan atributnya dalam bentuk *cards*. 
+
+```java
+    async function refreshProducts() {
+        document.getElementById("product_table").innerHTML = ""
+        const products = await getProducts()
+        let htmlString = ``
+        products.forEach((item) => {
+                htmlString += `\n<div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">${item.fields.name}</h5>
+                        <h3 class="card-text">Skin Type: ${item.fields.skinType}</p>
+                        <h3 class="card-text">Amount: ${item.fields.amount}</p>
+                        <h3 class="card-text">Payment: ${item.fields.payment}</p>
+                        <button class="btn btn-outline-warning" onclick="deleteProduct(${item.pk})">Delete</button>
+                    </div>
+                </div>
+            </div>` 
+            })
+
+        
+        document.getElementById("product_table").innerHTML = htmlString
+        const totalProductsElement = document.getElementById("total-products");
+        totalProductsElement.textContent = `Total skin orders: ${products.length} `;
+    }
+    refreshProducts()
+```
+
+- AJAX POST
+    
+Untuk mengimplementasi AJAX POST, pertama saya membuat sebuah tombol yang akan membuka sebuah modal dengan form untuk menambahkan item.
+
+Button
+
+```html
+    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">Make a skin order by AJAX</button>
+
+```
+Modal
+```html
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Make a new order</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="form" onsubmit="return false;">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="name" class="col-form-label">Name:</label>
+                            <input type="text" class="form-control" id="name" name="name"></input>
+                        </div>
+                        <div class="mb-3">
+                            <label for="skinType" class="col-form-label">Skin Type:</label>
+                            <input type="text" class="form-control" id="skinType" name="skinType"></input>
+                        </div>
+                        <div class="mb-3">
+                            <label for="amount" class="col-form-label">Amount:</label>
+                            <input type="number" class="form-control" id="amount" name="amount"></input>
+                        </div>
+                        <div class="mb-3">
+                            <label for="payment" class="col-form-label">Payment Method:</label>
+                            <textarea class="form-control" id="payment" name="payment"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success" id="button_add" data-bs-dismiss="modal">Add Product</button>
+                </div>
+            </div>
+        </div>
+    </div>
+```
+
+Kemudian saya membuat fungsi *view* baru untuk menambahkan item baru ke dalam *database*.
+
+```python
+@csrf_exempt
+def add_product_ajax(request):
+    if request.method == 'POST':
+        name = request.POST.get("name")
+        skinType = request.POST.get("skinType")
+        amount = request.POST.get("amount")
+        payment = request.POST.get("payment")
+        user = request.user
+        new_pesanan = Pesanan(name=name,skinType =skinType, amount = amount, payment = payment, user=user)
+        new_pesanan.save()
+
+        return HttpResponse(b"CREATED", status=201)
+    return HttpResponseNotFound()
+
+```
+
+Lalu ditambahkan path url nya pada urls.py
+
+```python
+    path('create-product-ajax/', add_product_ajax, name='add_product_ajax'),
+```
+
+Kemudian form dalam modal yang sudah dibuat disambungkan ke path `create-product-ajax/` dengan membuat fungsi pada blok \<script>. Setelah item baru dibuat, halaman akan diperbaharui secara *asynchronous* dengan dipanggilnya fungsi refreshProduct.
+
+```java
+    function addProduct() {
+        fetch("{% url 'main:add_product_ajax' %}", {
+            method: "POST",
+            body: new FormData(document.querySelector('#form'))
+        }).then(refreshProducts)
+
+        document.getElementById("form").reset()
+        return false
+    }
+    document.getElementById("button_add").onclick = addProduct
+
+```
+
+- Melakukan perintah `collectstatic`.
+
+Terakhir, saya jalankan perintah `python manage.py collectstatic` untuk mengumpulkan file static pada aplikasi.
+
+- Bonus
+
+Menambahkan fitur *delete* dengan membuat fungsi *views* dan menambahkan url path nya.
+
+`views.py`
+```python
+@csrf_exempt
+def delete_product_ajax(request, id):
+    product = Pesanan.objects.get(pk=id)
+    product.delete()
+    response = HttpResponseRedirect(reverse("main:show_main"))
+    return response
+
+```
+`urls.py`
+```python
+    path('delete_product_ajax/<int:id>', delete_product_ajax, name='delete_product_ajax')
+
+```
+
+Lalu menambahkan button pada tiap *card* dan *event handler* yang mengarahkan pada fungsi untuk menghapus *item*.
+
+```html
+<button class="btn btn-outline-warning" onclick="deleteProduct(${item.pk})">Delete</button>
+```
+
+```java
+    function deleteProduct(pk) {
+        var action = confirm("Are you sure you want to delete this order?");
+        if (action) {
+            fetch(`/delete_product_ajax/${pk}`, {
+                method: 'DELETE',
+            }).then(refreshProducts);
+            alert("your order has been deleted");
+        }
+    }
+```
+Setelah fungsi dipanggil, halaman akan diperbarui secara *asynchronous* tanpa me-*reload* satu halaman secara keseluruhan.
+
+
+## Perbedaan antara asynchronous programming dengan synchronous programming
+**Asynchronous** programming menerapkan suatu metode pemrograman yang tidak bergantung pada protokol I/O. Dalam pemrograman *asynchronous*, programming dilakukan bukan dengan gaya lama. Eksekusi tugas tidak dilakukan dengan mengeksekusi baris program satu per satu sesuai paradigma dan urutan program dalam kode. Sebaliknya, pemrograman *asynchronous* memungkinkan eksekusi program tanpa ketergantungan pada proses lain, yang dapat disebut sebagai operasi independen. 
+
+Sementara **synchronous** programming memiliki gaya pemrograman lama. Program dieksekusi secara berurutan sesuai dengan urutan dan prioritasnya. Pendekatan ini memiliki kelemahan dalam hal waktu eksekusi yang lama karena setiap tugas harus menunggu penyelesaian tugas lain sebelum dapat diproses.
+
+## Penerapan JavaScript dan AJAX, terdapat penerapan paradigma event-driven programming. Penjalasan dari paradigma tersebut dan sebutkan salah satu contoh penerapannya pada tugas ini.
+**Event-driven programming** merupakan paradigma pemrograman yang fokus merespons peristiwa yang berasal dari sumber eksternal seperti masukan pengguna atau perubahan sistem. Contoh penerapannya pada aplikasi ini adalah **button delete**. Jika *button* ini ditekan (*event*), maka akan dijalankan fungsi deleteProduct.
+## Penerapan asynchronous programming pada AJAX.
+AJAX, atau *Asynchronous* JavaScript and XML, menerapkan pertukaran data *asynchronous* antara *browser* web dan server. Setelah pemuatan halaman HTML awal, data dapat diperbarui secara dinamis tanpa harus me-reload seluruh halaman web. Ini membuat interaksi lebih responsif, karena data dapat diperbarui di latar belakang tanpa mengganggu pengguna. Dengan eksekusi *asynchronous*, AJAX menjaga kecepatan dan fleksibilitas dalam menanggapi pengguna serta mempertahankan lingkungan yang didorong oleh data, bukan halaman.
+
+### Pada PBP kali ini, penerapan AJAX dilakukan dengan menggunakan Fetch API daripada library jQuery. Bandingkanlah kedua teknologi tersebut dan tuliskan pendapat kamu teknologi manakah yang lebih baik untuk digunakan.
+
+Fetch API dan jQuery adalah alat yang digunakan dalam pengembangan web untuk membuat permintaan data secara asynchronous. Fetch API menyediakan cara modern dan lebih fleksibel dengan menggunakan konsep seperti Promise, async/await, dan fetch untuk mengelola permintaan HTTP. Meskipun konsep-konsep ini mungkin memerlukan waktu untuk pemahaman awal, Fetch API menawarkan keuntungan jangka panjang dalam hal kejelasan dan manajemen operasi asynchronous. Sebagai alternatif, jQuery, yang sudah lama digunakan, memberikan cara lebih tradisional dengan abstraksi tinggi untuk menangani permintaan AJAX. Namun, kelemahannya termasuk ukuran yang lebih besar dan ketergantungan pada callback, yang dapat membuat kode menjadi kurang bersih dan sulit dipahami. Fetch API adalah pilihan yang lebih baik untuk banyak proyek modern karena lebih ringan, lebih kuat, dan sesuai dengan tren saat ini.

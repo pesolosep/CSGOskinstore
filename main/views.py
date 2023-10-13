@@ -1,18 +1,15 @@
-from django.http import HttpResponseRedirect
-from main.forms import PesananForm
-from django.http import HttpResponse
-from django.core import serializers
-from main.forms import Pesanan
-from django.urls import reverse
+import datetime
 from django.shortcuts import render
+from django.http import HttpResponseRedirect, HttpResponse, HttpResponseNotFound
+from main.forms import PesananForm, Pesanan
+from django.urls import reverse
+from django.core import serializers
 from django.shortcuts import redirect
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib import messages  
+from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-import datetime
-from django.http import HttpResponseRedirect
-from django.urls import reverse
+from django.views.decorators.csrf import csrf_exempt
 
 
 # Create your views here.
@@ -135,5 +132,29 @@ def create_product(request):
     context = {'form': form}
     return render(request, "create_product.html", context)
 
+def get_product_json(request):
+    product_item = Pesanan.objects.filter(user=request.user)
+    return HttpResponse(serializers.serialize('json', product_item))
 
 
+
+@csrf_exempt
+def add_product_ajax(request):
+    if request.method == 'POST':
+        name = request.POST.get("name")
+        skinType = request.POST.get("skinType")
+        amount = request.POST.get("amount")
+        payment = request.POST.get("payment")
+        user = request.user
+        new_pesanan = Pesanan(name=name,skinType =skinType, amount = amount, payment = payment, user=user)
+        new_pesanan.save()
+
+        return HttpResponse(b"CREATED", status=201)
+    return HttpResponseNotFound()
+
+@csrf_exempt
+def delete_product_ajax(request, id):
+    product = Pesanan.objects.get(pk=id)
+    product.delete()
+    response = HttpResponseRedirect(reverse("main:show_main"))
+    return response
