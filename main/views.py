@@ -171,8 +171,9 @@ def create_product_flutter(request):
         new_product = Pesanan.objects.create(
             user = request.user,
             name = data["name"],
-            price = int(data["price"]),
-            description = data["description"]
+            amount = int(data["amount"]),
+            payment = data["payment"],
+            skinType = data["skinType"],
         )
 
         new_product.save()
